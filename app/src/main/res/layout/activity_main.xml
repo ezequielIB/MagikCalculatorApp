@@ -250,23 +250,13 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_0"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-                android:layout_width="72dp"
+                android:layout_width="168dp"
                 android:layout_height="72dp"
                 android:layout_margin="12dp"
+                android:layout_weight="0"
                 android:backgroundTint="#4E505F"
                 android:text="0"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                app:cornerRadius="35dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_positiveNegative"
-                style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_margin="12dp"
-                android:backgroundTint="#4E505F"
-                android:text="+/-"
+                android:textAlignment="viewStart"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 app:cornerRadius="35dp" />
@@ -279,6 +269,7 @@
                 android:layout_margin="12dp"
                 android:backgroundTint="#4E505F"
                 android:text=","
+                android:layout_weight="0"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 app:cornerRadius="35dp" />

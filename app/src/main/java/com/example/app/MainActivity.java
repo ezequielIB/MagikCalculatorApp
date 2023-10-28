@@ -2,6 +2,7 @@ package com.example.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String currentInput = "";
     String currentOperator = "";
     double result = 0;
+    CountDownTimer timer; // Temporizador
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 performCalculation();
+                startResultDivisionTimer(); // Inicia el temporizador
             }
         });
 
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 clearCalculator();
+                cancelResultDivisionTimer(); // Cancela el temporizador si se presiona "C"
             }
         });
 
@@ -167,5 +171,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private boolean isOperator(String str) {
         return str.equals("+") || str.equals("-") || str.equals("x") || str.equals("÷");
+    }
+
+    // Función para iniciar el temporizador de división
+    private void startResultDivisionTimer() {
+        // Configurar el temporizador para dividir el resultado después de 5 segundos
+        timer = new CountDownTimer(5000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                // Cuenta regresiva, si deseas hacer algo durante la cuenta regresiva
+            }
+
+            public void onFinish() {
+                // Dividir el resultado por 9 después de 5 segundos
+                if (result != 0) {
+                    result /= 9;
+                    updateResultView(String.valueOf(result));
+                }
+            }
+        }.start();
+    }
+
+    // Función para cancelar el temporizador
+    private void cancelResultDivisionTimer() {
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 }

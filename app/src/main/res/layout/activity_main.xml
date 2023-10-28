@@ -9,6 +9,19 @@
 
     <TextView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/solution_tv"
+        android:text="0"
+        android:textSize="25dp"
+        android:textAlignment="textEnd"
+        android:textColor="@color/white"
+        android:layout_above="@id/result_tv"
+        android:layout_margin="16dp">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/result_tv"
         android:text="0"
@@ -37,13 +50,13 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_ac"
+                android:id="@+id/button_c"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_margin="12dp"
                 android:backgroundTint="#4E505F"
-                android:text="AC"
+                android:text="C"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 app:cornerRadius="35dp" />

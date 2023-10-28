@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -12,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#17171C"
+        android:layout_alignParentBottom="true"
+        android:background="#1E1E1E"
         >
 
 
@@ -72,7 +72,6 @@
 
 
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -192,13 +191,13 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_3"
+                android:id="@+id/button_1"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_margin="12dp"
                 android:backgroundTint="#4E505F"
-                android:text="3"
+                android:text="1"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 app:cornerRadius="35dp" />
@@ -216,13 +215,13 @@
                 app:cornerRadius="35dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_1"
+                android:id="@+id/button_3"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_margin="12dp"
                 android:backgroundTint="#4E505F"
-                android:text="1"
+                android:text="3"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 app:cornerRadius="35dp" />

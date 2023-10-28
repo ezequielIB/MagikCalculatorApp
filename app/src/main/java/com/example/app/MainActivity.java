@@ -13,9 +13,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String currentInput = "";
     String currentOperator = "";
     double result = 0;
-    double previousResult = 0; // Almacenar el resultado anterior
-    CountDownTimer divisionTimer; // Temporizador para la división
-    CountDownTimer revertTimer; // Temporizador para revertir el resultado
+    double previousResult = 0;
+    CountDownTimer divisionTimer;
+    CountDownTimer revertTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         resultTv = findViewById(R.id.result_tv);
         solutionTv = findViewById(R.id.solution_tv);
 
-        // Asigna los botones y configura el listener
         MaterialButton button0 = assignButton(R.id.button_0);
         MaterialButton button1 = assignButton(R.id.button_1);
         MaterialButton button2 = assignButton(R.id.button_2);
@@ -44,25 +43,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MaterialButton buttonMultiply = assignButton(R.id.button_multiSymbol);
         MaterialButton buttonDivide = assignButton(R.id.button_divideSymbol);
 
-        // Implementa la lógica del botón "="
         buttonEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 performCalculation();
-                startResultDivisionTimer(); // Inicia el temporizador de división
+                startResultDivisionTimer();
             }
         });
 
-        // Implementa la lógica del botón C (borrar)
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clearCalculator();
-                cancelTimers(); // Cancela los temporizadores si se presiona "C"
+                cancelTimers();
             }
         });
 
-        // Implementa la lógica del botón "+/-" (cambio de signo)
         buttonPlusMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        // Implementa la lógica del botón "%" (porcentaje)
         buttonPercent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,15 +85,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MaterialButton button = (MaterialButton) v;
         String buttonText = button.getText().toString();
 
-        // Implementa el manejo de clics de botones numéricos, operadores y botones especiales aquí
         if (isNumeric(buttonText)) {
             currentInput += buttonText;
             updateResultView(currentInput);
         } else if (isOperator(buttonText)) {
-            handleOperator(buttonText);
+            if (!currentInput.isEmpty()) {
+                if (!currentOperator.isEmpty()) {
+                    // Si ya hay un operador, realiza la operación pendiente
+                    performCalculation();
+                    updateResultView(String.valueOf(result));
+                } else {
+                    result = Double.parseDouble(currentInput);
+                }
+                currentOperator = buttonText;
+                currentInput = "";
+            }
+        } else if (buttonText.equals("=")) {
+            if (!currentInput.isEmpty() && !currentOperator.isEmpty()) {
+                performCalculation();
+                currentOperator = "";
+                updateResultView(String.valueOf(result));
+            }
         }
     }
-
     private void performCalculation() {
         if (!currentInput.isEmpty() && !currentOperator.isEmpty()) {
             double secondOperand = Double.parseDouble(currentInput);
@@ -150,14 +159,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void handleOperator(String operator) {
-        if (!currentInput.isEmpty()) {
-            currentOperator = operator;
-            result = Double.parseDouble(currentInput);
-            currentInput = "";
-        }
-    }
-
     private void updateResultView(String text) {
         resultTv.setText(text);
     }
@@ -175,45 +176,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return str.equals("+") || str.equals("-") || str.equals("x") || str.equals("÷");
     }
 
-    // Función para iniciar el temporizador de división
     private void startResultDivisionTimer() {
-        // Configurar el temporizador para dividir el resultado después de 5 segundos
         divisionTimer = new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
-                // Cuenta regresiva para la división
             }
 
             public void onFinish() {
-                // Almacena el resultado actual como resultado anterior
                 previousResult = result;
-                // Divide el resultado por 9
                 if (result != 0) {
                     result /= 9;
                     updateResultView(String.valueOf(result));
-                    // Inicia el temporizador para revertir el resultado después de 5 segundos
                     startRevertTimer();
                 }
             }
         }.start();
     }
 
-    // Función para iniciar el temporizador de reversión del resultado
     private void startRevertTimer() {
-        // Configura el temporizador para revertir el resultado después de 5 segundos
         revertTimer = new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
-                // Cuenta regresiva para la reversión
             }
 
             public void onFinish() {
-                // Restablece el resultado al valor anterior
                 result = previousResult;
                 updateResultView(String.valueOf(result));
             }
         }.start();
     }
 
-    // Función para cancelar los temporizadores
     private void cancelTimers() {
         if (divisionTimer != null) {
             divisionTimer.cancel();

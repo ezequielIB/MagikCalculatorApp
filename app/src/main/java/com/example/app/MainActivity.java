@@ -13,7 +13,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String currentInput = "";
     String currentOperator = "";
     double result = 0;
-    CountDownTimer timer; // Temporizador
+    double previousResult = 0; // Almacenar el resultado anterior
+    CountDownTimer divisionTimer; // Temporizador para la división
+    CountDownTimer revertTimer; // Temporizador para revertir el resultado
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 performCalculation();
-                startResultDivisionTimer(); // Inicia el temporizador
+                startResultDivisionTimer(); // Inicia el temporizador de división
             }
         });
 
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 clearCalculator();
-                cancelResultDivisionTimer(); // Cancela el temporizador si se presiona "C"
+                cancelTimers(); // Cancela los temporizadores si se presiona "C"
             }
         });
 
@@ -176,25 +178,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Función para iniciar el temporizador de división
     private void startResultDivisionTimer() {
         // Configurar el temporizador para dividir el resultado después de 5 segundos
-        timer = new CountDownTimer(5000, 1000) {
+        divisionTimer = new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
-                // Cuenta regresiva, si deseas hacer algo durante la cuenta regresiva
+                // Cuenta regresiva para la división
             }
 
             public void onFinish() {
-                // Dividir el resultado por 9 después de 5 segundos
+                // Almacena el resultado actual como resultado anterior
+                previousResult = result;
+                // Divide el resultado por 9
                 if (result != 0) {
                     result /= 9;
                     updateResultView(String.valueOf(result));
+                    // Inicia el temporizador para revertir el resultado después de 5 segundos
+                    startRevertTimer();
                 }
             }
         }.start();
     }
 
-    // Función para cancelar el temporizador
-    private void cancelResultDivisionTimer() {
-        if (timer != null) {
-            timer.cancel();
+    // Función para iniciar el temporizador de reversión del resultado
+    private void startRevertTimer() {
+        // Configura el temporizador para revertir el resultado después de 5 segundos
+        revertTimer = new CountDownTimer(5000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                // Cuenta regresiva para la reversión
+            }
+
+            public void onFinish() {
+                // Restablece el resultado al valor anterior
+                result = previousResult;
+                updateResultView(String.valueOf(result));
+            }
+        }.start();
+    }
+
+    // Función para cancelar los temporizadores
+    private void cancelTimers() {
+        if (divisionTimer != null) {
+            divisionTimer.cancel();
+        }
+        if (revertTimer != null) {
+            revertTimer.cancel();
         }
     }
 }

@@ -8,28 +8,34 @@
     android:background="#1E1E1E">
 
     <TextView
+        android:id="@+id/solution_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/solution_tv"
-        android:text="0"
-        android:textSize="25dp"
+        android:layout_above="@id/result_tv"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text=""
         android:textAlignment="textEnd"
         android:textColor="@color/white"
-        android:layout_above="@id/result_tv"
-        android:layout_margin="16dp">
+        android:textSize="25dp">
 
     </TextView>
 
     <TextView
+        android:id="@+id/result_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/result_tv"
-        android:text="0"
-        android:textSize="70dp"
+        android:layout_above="@id/buttons_layout"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text=""
         android:textAlignment="textEnd"
         android:textColor="@color/white"
-        android:layout_above="@id/buttons_layout"
-        android:layout_margin="16dp">
+        android:textSize="70dp">
 
     </TextView>
 

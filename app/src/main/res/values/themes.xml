@@ -1,7 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.App" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
+
+
+        <!--Primary brand color -->
+        <item name="colorPrimary">#1E1E1E</item>
+        <item name="colorPrimaryVariant">#FFB800</item>
+        <item name="colorOnPrimary">#000</item>
+
+        <!--Secondary brand color -->
+
+        <!--Status bar color -->
+
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 

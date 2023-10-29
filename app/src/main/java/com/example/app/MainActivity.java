@@ -2,7 +2,6 @@ package com.example.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;

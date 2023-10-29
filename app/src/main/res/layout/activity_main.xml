@@ -279,20 +279,32 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
 
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_0"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-                android:layout_width="168dp"
+                android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_margin="12dp"
-                android:layout_weight="0"
                 android:backgroundTint="#2E2F38"
                 android:text="0"
-                android:textAlignment="center"
+                android:layout_weight="0"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 app:cornerRadius="35dp" />
 
+            <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_Action"
+            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_margin="12dp"
+            android:backgroundTint="#FFB800"
+            android:text="A"
+            android:layout_weight="0"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:cornerRadius="35dp" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_comma"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"

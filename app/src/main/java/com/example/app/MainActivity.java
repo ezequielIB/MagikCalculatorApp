@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String currentInput = "";
     String currentOperator = "";
     double result = 0;
-    double previousResult = 0;
     CountDownTimer divisionTimer;
     CountDownTimer revertTimer;
 
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MaterialButton button9 = assignButton(R.id.button_9);
         MaterialButton buttonClear = assignButton(R.id.button_c);
         MaterialButton buttonEquals = assignButton(R.id.button_resultSymbol);
+        MaterialButton buttonAction = assignButton(R.id.button_Action);
         MaterialButton buttonPlusMinus = assignButton(R.id.button_positiveNegative);
         MaterialButton buttonPercent = assignButton(R.id.button_percent);
         MaterialButton buttonAdd = assignButton(R.id.button_sumSymbol);
@@ -44,6 +44,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MaterialButton buttonDivide = assignButton(R.id.button_divideSymbol);
 
         buttonEquals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                performStandardCalculation();
+            }
+        });
+
+        buttonAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 performNewCalculation();
@@ -111,9 +118,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MaterialButton button = (MaterialButton) v;
         String buttonText = button.getText().toString();
 
-        if (isNumeric(buttonText)) {
+        if (isNumeric(buttonText) || isOperator(buttonText)) {
             currentInput += buttonText;
             updateResultView(currentInput);
+        }
+    }
+
+    private void performStandardCalculation() {
+        if (!currentInput.isEmpty() && !currentOperator.isEmpty()) {
+            performCalculation();
+            updateResultView(String.valueOf(result));
         }
     }
 
@@ -225,5 +239,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    private boolean isOperator(String str) {
+        return "+".equals(str) || "-".equals(str) || "x".equals(str) || "÷".equals(str);
     }
 }

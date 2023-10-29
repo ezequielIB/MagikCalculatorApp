@@ -125,37 +125,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void performStandardCalculation() {
-        if (!currentInput.isEmpty() && !currentOperator.isEmpty()) {
-            performCalculation();
-            updateResultView(String.valueOf(result));
+        if (!currentInput.isEmpty()) {
+            if (!currentOperator.isEmpty()) {
+                performCalculation();
+                updateResultView(String.valueOf(result));
+                currentOperator = "";
+            }
         }
     }
 
     private void performNewCalculation() {
         if (!currentInput.isEmpty()) {
-            // Mostrar el número original
             updateResultView(currentInput);
-
-            // Esperar 5 segundos
             new CountDownTimer(5000, 1000) {
                 public void onTick(long millisUntilFinished) {
                 }
 
                 public void onFinish() {
-                    // Dividir el número por 9
                     double originalValue = Double.parseDouble(currentInput);
                     double result = originalValue / 9;
-
-                    // Mostrar el resultado de la división
                     updateResultView(String.valueOf(result));
-
-                    // Esperar 5 segundos más
                     new CountDownTimer(5000, 1000) {
                         public void onTick(long millisUntilFinished) {
                         }
 
                         public void onFinish() {
-                            // Volver a mostrar el número original
                             updateResultView(currentInput);
                         }
                     }.start();
@@ -200,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             updateResultView(String.valueOf(result));
             currentInput = "";
-            currentOperator = "";
         }
     }
 

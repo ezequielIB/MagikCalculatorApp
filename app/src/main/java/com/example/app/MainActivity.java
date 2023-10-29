@@ -3,6 +3,7 @@ package com.example.app;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
@@ -13,8 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String currentInput = "";
     String currentOperator = "";
     double result = 0;
-    CountDownTimer divisionTimer;
-    CountDownTimer revertTimer;
+    private boolean actionButtonPressed = false; // Variable para rastrear si se presionó el botón "Action"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +50,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        buttonAction.setOnClickListener(new View.OnClickListener() {
+        buttonAction.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                performNewCalculation();
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Cuando se presiona el botón "Action"
+                        actionButtonPressed = true;
+                        performNewCalculation();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // Cuando se suelta el botón "Action"
+                        actionButtonPressed = false;
+                        updateResultView(currentInput);
+                        break;
+                }
+                return true;
             }
         });
 
@@ -136,25 +148,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void performNewCalculation() {
         if (!currentInput.isEmpty()) {
-            updateResultView(currentInput);
-            new CountDownTimer(5000, 1000) {
-                public void onTick(long millisUntilFinished) {
-                }
-
-                public void onFinish() {
-                    double originalValue = Double.parseDouble(currentInput);
-                    double result = originalValue / 9;
-                    updateResultView(String.valueOf(result));
-                    new CountDownTimer(5000, 1000) {
-                        public void onTick(long millisUntilFinished) {
-                        }
-
-                        public void onFinish() {
-                            updateResultView(currentInput);
-                        }
-                    }.start();
-                }
-            }.start();
+            double originalValue = Double.parseDouble(currentInput);
+            double result = originalValue / 9;
+            updateResultView(String.valueOf(result));
         }
     }
 

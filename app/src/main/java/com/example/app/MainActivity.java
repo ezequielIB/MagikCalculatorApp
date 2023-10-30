@@ -140,11 +140,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!currentInput.isEmpty()) {
             if (!currentOperator.isEmpty()) {
                 performCalculation();
-
-                // Agrega un "9" al resultado real y muestra la cadena
-                String resultString = String.valueOf(result);
-                updateResultView(resultString);
-
+                // Agrega el resultado actual al input actual
+                currentInput = String.valueOf(result);
+                updateResultView(currentInput);
                 currentOperator = "";
             }
         }

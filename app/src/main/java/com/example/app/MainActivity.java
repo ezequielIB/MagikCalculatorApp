@@ -2,6 +2,7 @@ package com.example.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -139,12 +140,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!currentInput.isEmpty()) {
             if (!currentOperator.isEmpty()) {
                 performCalculation();
-            } else {
-                result = Double.parseDouble(currentInput);
+
+                // Agrega un "9" al resultado real y muestra la cadena
+                String resultString = String.valueOf(result);
+                updateResultView(resultString);
+
+                currentOperator = "";
             }
-            updateResultView(String.valueOf(result));
-            currentOperator = ""; // Resetea el operador
-            currentInput = String.valueOf(result); // Establece el resultado actual como el primer número de una nueva operación
         }
     }
 
@@ -152,9 +154,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!currentInput.isEmpty()) {
             double originalValue = Double.parseDouble(currentInput);
             double result = originalValue / 9;
-            updateResultView(String.valueOf(result));
+            String resultString = String.valueOf(result);
+
+            // Agregar "9" al final del resultado y cambiar el color
+            resultString = resultString + "9";
+
+            // Cambiar el color del "9" (por ejemplo, a rojo)
+            String styledResultString = resultString.replace("9", "<font color='#FFB800'>9</font>");
+
+            // Mostrar el resultado en la vista con formato HTML para el color
+            resultTv.setText(Html.fromHtml(styledResultString, Html.FROM_HTML_MODE_LEGACY));
         }
     }
+
 
     private void handleOperator(String operator) {
         if (!currentInput.isEmpty()) {

@@ -139,9 +139,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!currentInput.isEmpty()) {
             if (!currentOperator.isEmpty()) {
                 performCalculation();
-                updateResultView(String.valueOf(result));
-                currentOperator = "";
+            } else {
+                result = Double.parseDouble(currentInput);
             }
+            updateResultView(String.valueOf(result));
+            currentOperator = ""; // Resetea el operador
+            currentInput = String.valueOf(result); // Establece el resultado actual como el primer número de una nueva operación
         }
     }
 

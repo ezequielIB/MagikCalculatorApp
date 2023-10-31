@@ -35,7 +35,7 @@
         android:text=""
         android:textAlignment="textEnd"
         android:textColor="@color/white"
-        android:textSize="70dp">
+        android:textSize="60dp">
 
     </TextView>
 

@@ -346,9 +346,7 @@
                 android:textSize="30dp"
                 app:cornerRadius="35dp" />
 
-
         </LinearLayout>
-
 
     </LinearLayout>
 

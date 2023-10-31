@@ -2,19 +2,21 @@ package com.example.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.app.R;
 import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView resultTv, solutionTv;
+    StringBuilder inputHistory = new StringBuilder(); // Historial de entrada
     String currentInput = "";
     String currentOperator = "";
     double result = 0;
-    private boolean actionButtonPressed = false; // Variable para rastrear si se presionó el botón "Action"
+    private boolean actionButtonPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +133,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String buttonText = button.getText().toString();
 
         if (isNumeric(buttonText) || isOperator(buttonText)) {
+            // Agregar números y operadores al historial
+            inputHistory.append(buttonText);
+            updateSolutionView(inputHistory.toString());
             currentInput += buttonText;
             updateResultView(currentInput);
         }
@@ -157,10 +162,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Agregar "9" al final del resultado
             resultString = resultString + "9";
 
-            // Mostrar el resultado sin cambiar el color
             updateResultView(resultString);
         }
     }
+
     private void handleOperator(String operator) {
         if (!currentInput.isEmpty()) {
             if (!currentOperator.isEmpty()) {
@@ -205,6 +210,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currentOperator = "";
         result = 0;
         updateResultView("0");
+
+        // Limpiar el historial
+        inputHistory.setLength(0);
+        updateSolutionView(""); // Actualizar el historial a un valor vacío
     }
 
     private void toggleSign() {
@@ -230,6 +239,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             text = text.replace(".0", "");
         }
         resultTv.setText(text);
+    }
+
+    private void updateSolutionView(String text) {
+        solutionTv.setText(text);
     }
 
     private boolean isNumeric(String str) {

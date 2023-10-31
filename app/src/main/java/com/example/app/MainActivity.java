@@ -126,20 +126,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn.setOnClickListener(this);
         return btn;
     }
-
     @Override
     public void onClick(View v) {
         MaterialButton button = (MaterialButton) v;
-        String buttonText = button.getText().toString();
+        String buttonText= button.getText().toString();
 
-        if (isNumeric(buttonText) || isOperator(buttonText)) {
-            // Agregar números y operadores al historial
-            inputHistory.append(buttonText);
-            updateSolutionView(inputHistory.toString());
-            currentInput += buttonText;
-            updateResultView(currentInput);
-        }
+
+        // Agregar el contenido del botón al historial
+        inputHistory.append(buttonText);
+
+        // Si es un número, un operador o cualquier otro carácter, actualizar la entrada actual
+        currentInput += buttonText;
+        updateResultView(currentInput);
+        // Actualizar la vista del historial
+        updateSolutionView(inputHistory.toString());
     }
+
 
     private void performStandardCalculation() {
         if (!currentInput.isEmpty()) {

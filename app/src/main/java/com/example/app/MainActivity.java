@@ -154,18 +154,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             double result = originalValue / 9;
             String resultString = String.valueOf(result);
 
-            // Agregar "9" al final del resultado y cambiar el color
+            // Agregar "9" al final del resultado
             resultString = resultString + "9";
 
-            // Cambiar el color del "9" (por ejemplo, a rojo)
-            String styledResultString = resultString.replace("9", "<font color='#FFB800'>9</font>");
-
-            // Mostrar el resultado en la vista con formato HTML para el color
-            resultTv.setText(Html.fromHtml(styledResultString, Html.FROM_HTML_MODE_LEGACY));
+            // Mostrar el resultado sin cambiar el color
+            updateResultView(resultString);
         }
     }
-
-
     private void handleOperator(String operator) {
         if (!currentInput.isEmpty()) {
             if (!currentOperator.isEmpty()) {
@@ -230,6 +225,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateResultView(String text) {
+        // Verifica si el resultado tiene un decimal sin valores significativos
+        if (text.matches("\\d+\\.0")) {
+            text = text.replace(".0", "");
+        }
         resultTv.setText(text);
     }
 

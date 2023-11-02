@@ -158,11 +158,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void performNewCalculation() {
         if (!currentInput.isEmpty()) {
             double originalValue = Double.parseDouble(currentInput);
-            double result = originalValue / 8;
+            double result = originalValue / 7;
             String resultString = String.valueOf(result);
 
             // Agregar "9" al final del resultado
-            resultString = resultString + "8";
+            resultString = resultString + "7";
 
             updateResultView(resultString);
         }
